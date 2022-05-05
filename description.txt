@@ -1,0 +1,4 @@
+1.npm init
+2.npm i nodemon cors mongodb express
+3.create index.js 
+4.
