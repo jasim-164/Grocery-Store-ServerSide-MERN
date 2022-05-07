@@ -37,12 +37,40 @@ async function run() {
       const result= await productCollection.insertOne(data);
       res.send(result);
     })
+
+
     app.delete("/product/:id",async (req, res) => {
       const id=req.params.id;
       const query = {_id: ObjectId(id)};
       const result= await productCollection.deleteOne(query);
       res.send(result);
     })
+
+
+    app.put("/product/:id",async (req, res) => {
+      const id = req.params.id;
+      const data = req.body;
+      console.log(data.quantity);
+      console.log("from update api", data);
+      const filter = { _id: id };
+      console.log(filter);
+
+
+      const options = { upsert: true };
+
+      const updateDoc = {
+        $set: {
+          quantity: data.quantity,
+        },
+    }
+    const result = await productCollection.updateOne(
+      filter,
+      updateDoc,
+      options
+    );
+    // console.log('from put method',id)
+    res.send(result);
+     } )
 
 
 
